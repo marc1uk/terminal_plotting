@@ -24,28 +24,28 @@ int main(int argc, char* argv[]){
 	}
 	
 	// plot size in lines x chars
-	int height=20;
-	int width=80;
+	int c_height=20;
+	int c_width=80;
 	char* tmp=nullptr;
 	tmp=getenv("LINES");
 	//printf("LINES is %p\n",tmp);
-	if(tmp) height=std::atoi(tmp);
+	if(tmp) c_height=std::atoi(tmp);
 	tmp=nullptr;
 	tmp=getenv("COLUMNS");
 	//printf("COLUMNS is %p\n",tmp);
-	if(tmp) width=std::atoi(tmp);
+	if(tmp) c_width=std::atoi(tmp);
 	// account for axes. Acually drawille doesn't plot these. TODO
-	height -= 3;
-	//width -= 2;
-	std::clog<<"canvas size: "<<width<<"x"<<height<<std::endl;
+	c_height -= 3;
+	//c_width -= 2;
+	std::clog<<"canvas size: "<<c_width<<"x"<<c_height<<std::endl;
 	
 	// required by drawille
 	std::locale::global(std::locale(""));
-	Drawille::Canvas canvas(width, height);
+	Drawille::Canvas canvas(c_width, c_height);
 	
 	// braille chars are 2 wide and 4 heigh, so we can have more points than actual widthxheight
-	width *= 2.;
-	height *= 4;
+	int width = c_width * 2.;
+	int height = c_height *4;
 	double datamax=0;
 	
 	// XXX note: using stdout (cout or printf) will corrupt the plot
@@ -82,10 +82,10 @@ int main(int argc, char* argv[]){
 			nums.resize(0); // dispose of elements (without resetting capacity)
 			while(ss >> nextnum) nums.push_back(nextnum);
 			
-			// clear previous chart so we replace it
+			// we have 'canvas.unset(x,y)', but it's more efficient to just replace it
 			std::clock_t clear_start = std::clock();
 			if(!first){
-				// FIXME not sure how to do this with drawille, or if its needed?
+				canvas = Drawille::Canvas(c_width, c_height);
 			}
 			clock_t clear_end = std::clock();
 			first=false;
