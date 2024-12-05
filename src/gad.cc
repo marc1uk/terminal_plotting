@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
 	//printf("COLUMNS is %p\n",tmp);
 	if(tmp) c_width=std::atoi(tmp);
 	// account for axes. Acually drawille doesn't plot these. TODO
-	c_height -= 3;
+	//c_height -= 3; // this does leave space but subsequent draws the leave trailing garbage on those lines
 	//c_width -= 2;
 	std::clog<<"canvas size: "<<c_width<<"x"<<c_height<<std::endl;
 	
