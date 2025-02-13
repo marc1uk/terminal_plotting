@@ -58,7 +58,8 @@ int main(int argc, char* argv[]){
 	if(tmp) width=std::atoi(tmp);
 	// eehh safety factors, it doesn't seem to line to really filly it.
 	height -= 5;
-	width -= 5; // FIXME increase if legend being shown
+	width -= 10; // FIXME increase if legend being shown
+	std::cout<<"width: "<<width<<", height: "<<height<<std::endl;
 	
 	while(true){
 		// open the pipe
